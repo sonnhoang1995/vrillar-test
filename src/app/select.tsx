@@ -17,25 +17,25 @@ export default function Select() {
     }
     const changeYear = (selectedYear: string) => {
         setYear(selectedYear);
-        router.push(`/race-results/${content}/${selectedYear}`);
+        router.push(`/race-results/${content}/${selectedYear}/all`);
     };
 
     const changeContent = (selectedContent: string) => {
         setContent(selectedContent);
-        router.push(`/race-results/${selectedContent}/${year}`);
-    };
-
-    const changeSubContent = (subContent: string) => {
-        router.push(`race-results/${content}/${year}/${subContent}`);
+        router.push(`/race-results/${selectedContent}/${year}/all`);
     };
 
     return (
         <div className="row m-4">
-            <div className="col-12 col-md-4">
+            <div className="col-12 col-md-6">
                 <select
                     className="form-select form-select-lg mb-3"
                     onChange={(e) => changeYear(e.target.value)}
-                    style={{ width: "100%", textAlign: "center" }}
+                    style={{
+                        width: "100%",
+                        textAlign: "center",
+                        borderColor: "lightgray"
+                    }}
                 >
                     {years.map((year) => {
                         return (
@@ -46,24 +46,19 @@ export default function Select() {
                     })}
                 </select>
             </div>
-            <div className="col-12 col-md-4">
+            <div className="col-12 col-md-6">
                 <select
                     className="form-select form-select-lg mb-3"
                     onChange={(e) => changeContent(e.target.value)}
-                    style={{ width: "100%", textAlign: "center" }}
+                    style={{
+                        width: "100%",
+                        textAlign: "center",
+                        borderColor: "lightgray"
+                    }}
                 >
                     <option value="races">Races</option>
                     <option value="drivers">Drivers</option>
                     <option value="teams">Teams</option>
-                </select>
-            </div>
-            <div className="col-12 col-md-4">
-                <select
-                    className="form-select form-select-lg mb-3"
-                    onChange={(e) => changeSubContent(e.target.value)}
-                    style={{ width: "100%", textAlign: "center" }}
-                >
-                    <option value="all">All</option>
                 </select>
             </div>
         </div>

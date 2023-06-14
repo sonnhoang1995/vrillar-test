@@ -1,0 +1,187 @@
+.table {
+    width: 100%;
+    color: black;
+    text-align: center;
+}
+
+.ar-grand-prix {
+    width: 15%;
+}
+
+.ar-date {
+    width: 15%;
+}
+
+.ar-winner {
+    width: 30%;
+}
+
+.ar-winner p {
+    margin-bottom: 0;
+}
+
+.ar-car {
+    width: 25%;
+}
+
+.ar-laps {
+    width: 5%;
+}
+
+.ar-time {
+    width: 15%;
+}
+
+.ar-winner-short-name {
+    display: none;
+}
+
+.ar-body tr {
+    height: 3rem;
+}
+
+.ar-body tr:nth-child(odd) {
+    background-color: rgba(244, 244, 244, 0.8);
+}
+
+.r-position {
+    width: 5%;
+}
+
+.r-number {
+    width: 5%;
+}
+
+.r-driver {
+    width: 25%;
+}
+
+.r-driver p{
+    margin-bottom: 0;
+}
+
+.r-car {
+    width: 30%;
+}
+
+.r-laps {
+    width: 10%;
+}
+
+.r-time {
+    width: 15%;
+}
+
+.r-points {
+    width: 10%;
+}
+
+.r-driver-short-name {
+    display: none;
+}
+
+@media (max-width: 1080px) {
+    .ar-time {
+        display: none;
+    }
+    .ar-winner-first-name {
+        display: none;
+    }
+    .ar-winner-short-name {
+        display: none;
+    }
+    .ar-car {
+        width: 30%;
+    }
+    .ar-laps {
+        width: 15%;
+    }
+
+    .r-car {
+        display: none;
+    }
+    .r-position {
+        width: 10%;
+    }
+    .r-number {
+        width: 10%;
+    }
+    .r-driver {
+        width: 40%;
+    }
+    .r-time {
+        width: 20%;
+    }
+    .r-driver-first-name {
+        display: none;
+    }
+    .r-driver-short-name {
+        display: none;
+    }
+}
+
+@media (max-width: 790px) {
+    .ar-winner-first-name {
+        display: none;
+    }
+    .ar-winner-last-name {
+        display: none;
+    }
+    .ar-winner-short-name {
+        display: inline;
+    }
+    .ar-date {
+        display: none;
+    }
+    .ar-time {
+        display: none;
+    }
+    .ar-laps {
+        display: none;
+    }
+    .ar-grand-prix {
+        width: 30%;
+    }
+    .ar-winner {
+        width: 30%;
+    }
+    .ar-car {
+        width: 40%;
+    }
+
+    .r-driver-last-name {
+        display: none;
+    }
+    .r-driver-first-name{
+        display: none;
+    }
+    .r-driver-short-name {
+        display: inline
+    }
+    .r-number {
+        display: none;
+    }
+    .r-laps {
+        display: none;
+    }
+    .r-position {
+        width: 20%;
+    }
+    .r-driver {
+        width: 20%;
+    }
+    .r-time {
+        width: 40%;
+    }
+    .r-points {
+        width: 20%;
+    }
+}
+
+.r-body tr {
+    height: 3rem;
+}
+
+.r-body tr:nth-child(odd) {
+    background-color: rgba(244, 244, 244, 0.8);
+}

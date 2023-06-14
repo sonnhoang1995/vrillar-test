@@ -3,5 +3,5 @@ export default function ResultLayout({
 }: {
     children: React.ReactNode;
 }) {
-    return <section style={{ height: "100vh" }}>{children}</section>;
+    return <section>{children}</section>;
 }
