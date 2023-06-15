@@ -14,37 +14,80 @@ type AllRacerResult = {
     points: string;
 };
 
+type AllTeamResult = {
+    position: string;
+    team: string;
+    points: string;
+};
+
 export default function BarChart(props: any) {
-    const result: AllRacerResult[] = props.chartData;
-    const labels = result.map(
-        (racer: AllRacerResult) =>
-            `${racer.winnerFirstName} ${racer.winnerLastName}`
-    );
-    const data = result.map((racer: AllRacerResult, i: number) => {
-        return {
-            y: i,
-            x: racer.points,
-            position: racer.position,
-            nationality: racer.nationality,
-            car: racer.car,
-        };
-    });
-    const tooltip = {
-        callbacks: {
-            label: (context: any) => {
-                const position = context.raw.position;
-                const nationality = context.raw.nationality;
-                const car = context.raw.car;
-                const points = context.raw.x;
-                return [
-                    `Position: ${position}`,
-                    `Points: ${points}`,
-                    `Nationality: ${nationality}`,
-                    `Car: ${car}`
-                ];
+    let labels;
+    let data;
+    let tooltip;
+    let title;
+    if (props.type == "racers") {
+        title = `${props.year} Driver Standings`;
+        const result: AllRacerResult[] = props.chartData;
+
+        labels = result.map(
+            (racer: AllRacerResult) =>
+                `${racer.winnerFirstName} ${racer.winnerLastName}`
+        );
+        data = result.map((racer: AllRacerResult, i: number) => {
+            return {
+                y: i,
+                x: racer.points,
+                position: racer.position,
+                nationality: racer.nationality,
+                car: racer.car
+            };
+        });
+        tooltip = {
+            callbacks: {
+                label: (context: any) => {
+                    const position = context.raw.position;
+                    const nationality = context.raw.nationality;
+                    const car = context.raw.car;
+                    const points = context.raw.x;
+                    return [
+                        `Position: ${position}`,
+                        `Points: ${points}`,
+                        `Nationality: ${nationality}`,
+                        `Car: ${car}`
+                    ];
+                }
             }
-        }
-    };
+        };
+    } else {
+        title = `${props.year} Constructor Standings`;
+        const result: AllTeamResult[] = props.chartData;
+        if (result.length == 0)
+            return (
+                <h2 style={{ textAlign: "center", color: "black" }}>
+                    The Constructors Championship was not awarded until 1958
+                </h2>
+            );
+
+        labels = result.map((team: AllTeamResult) => team.team);
+        data = result.map((team: AllTeamResult, i: number) => {
+            return {
+                y: i,
+                x: team.points,
+                position: team.position,
+                points: team.points
+            };
+        });
+        tooltip = {
+            callbacks: {
+                label: (context: any) => {
+                    const position = context.raw.position;
+                    const points = context.raw.points;
+
+                    return [`Position: ${position}`, `Points: ${points}`];
+                }
+            }
+        };
+    }
     const chartData = {
         labels,
         datasets: [
@@ -71,9 +114,7 @@ export default function BarChart(props: any) {
     };
     return (
         <div className="chart-container">
-            <h2 style={{ textAlign: "center", color: "black" }}>
-                {props.year} Driver Standings
-            </h2>
+            <h2 style={{ textAlign: "center", color: "black" }}>{title}</h2>
             <Bar
                 data={chartData}
                 options={{
