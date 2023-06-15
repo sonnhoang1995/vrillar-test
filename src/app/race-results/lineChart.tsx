@@ -4,45 +4,75 @@ import Chart from "chart.js/auto";
 
 Chart.register(CategoryScale);
 
-type Result = {
-    grandPrix: string,
-    date: string,
-    car: string,
-    position: string,
-    points: string
+type RacerResult = {
+    grandPrix: string;
+    date: string;
+    car: string;
+    position: string;
+    points: string;
+};
+
+type TeamResult = {
+    grandPrix: string;
+    date: string;
+    points: string;
 };
 
 export default function LineChart(props: any) {
-    const result: Result[] = props.chartData;
-    const labels = result.map(
-        (racer: Result) =>
-            racer.grandPrix
-    );
-    const data = result.map((racer: Result, i: number) => {
-        return {
-            x: i,
-            y: racer.points,
-            position: racer.position,
-            date: racer.date,
-            car: racer.car,
-        };
-    });
-    const tooltip = {
-        callbacks: {
-            label: (context: any) => {
-                const position = context.raw.position;
-                const date = context.raw.date;
-                const car = context.raw.car;
-                const points = context.raw.y;
-                return [
-                    `Position: ${position}`,
-                    `Points: ${points}`,
-                    `Date: ${date}`,
-                    `Car: ${car}`
-                ];
+    let labels;
+    let data;
+    let tooltip;
+    let title;
+    if (props.type == "racers") {
+        title = `${props.year} Driver Standings: ${props.racerName}`;
+        const result: RacerResult[] = props.chartData;
+        labels = result.map((racer: RacerResult) => racer.grandPrix);
+        data = result.map((racer: RacerResult, i: number) => {
+            return {
+                x: i,
+                y: racer.points,
+                position: racer.position,
+                date: racer.date,
+                car: racer.car
+            };
+        });
+        tooltip = {
+            callbacks: {
+                label: (context: any) => {
+                    const position = context.raw.position;
+                    const date = context.raw.date;
+                    const car = context.raw.car;
+                    const points = context.raw.y;
+                    return [
+                        `Position: ${position}`,
+                        `Points: ${points}`,
+                        `Date: ${date}`,
+                        `Car: ${car}`
+                    ];
+                }
             }
-        }
-    };
+        };
+    } else {
+        title = `${props.year} Constructor Standings: ${props.teamName}`;
+        const result: TeamResult[] = props.chartData;
+        labels = result.map((team: TeamResult) => team.grandPrix);
+        data = result.map((team: TeamResult, i: number) => {
+            return {
+                x: i,
+                y: team.points,
+                date: team.date
+            };
+        });
+        tooltip = {
+            callbacks: {
+                label: (context: any) => {
+                    const date = context.raw.date;
+                    const points = context.raw.y;
+                    return [`Points: ${points}`, `Date: ${date}`];
+                }
+            }
+        };
+    }
     const chartData = {
         labels,
         datasets: [
@@ -56,9 +86,7 @@ export default function LineChart(props: any) {
     };
     return (
         <div className="chart-container">
-            <h2 style={{ textAlign: "center", color: "black" }}>
-                {props.year} Driver Standings: {props.racerName}
-            </h2>
+            <h2 style={{ textAlign: "center", color: "black" }}>{title}</h2>
             <Line
                 data={chartData}
                 options={{
