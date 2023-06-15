@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -8,8 +8,11 @@ export default function Select() {
     useEffect(() => {
         import("bootstrap");
     }, []);
-    const [year, setYear] = useState("2023");
-    const [content, setContent] = useState("races");
+    const pathName = usePathname();
+    const pathContent = pathName.split("/")[2];
+    const pathYear = pathName.split("/")[3];
+    const [year, setYear] = useState(pathYear);
+    const [content, setContent] = useState(pathContent);
     const router = useRouter();
     const years: number[] = [];
     for (let i = 2023; i >= 1950; i--) {
@@ -36,6 +39,7 @@ export default function Select() {
                         textAlign: "center",
                         borderColor: "lightgray"
                     }}
+                    defaultValue={year}
                 >
                     {years.map((year) => {
                         return (
@@ -55,6 +59,7 @@ export default function Select() {
                         textAlign: "center",
                         borderColor: "lightgray"
                     }}
+                    defaultValue={content}
                 >
                     <option value="races">Races</option>
                     <option value="drivers">Drivers</option>
