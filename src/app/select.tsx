@@ -9,8 +9,14 @@ export default function Select() {
         import("bootstrap");
     }, []);
     const pathName = usePathname();
-    const pathContent = pathName.split("/")[2];
-    const pathYear = pathName.split("/")[3];
+    let pathContent = pathName.split("/")[2];
+    let pathYear = pathName.split("/")[3];
+    if(!pathYear) {
+        pathYear = 'default';
+    }
+    if (!pathContent) {
+        pathContent = "races";
+    }
     const [year, setYear] = useState(pathYear);
     const [content, setContent] = useState(pathContent);
     const router = useRouter();
@@ -41,6 +47,9 @@ export default function Select() {
                     }}
                     defaultValue={year}
                 >
+                    <option disabled key="default" value="default">
+                        Select year to show results
+                    </option>
                     {years.map((year) => {
                         return (
                             <option key={`${year}`} value={`${year}`}>
